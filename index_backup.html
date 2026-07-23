@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Whilky Ogolla</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#F5F8FF;
+  --navy:#0F172A;
+  --navy2:#1E293B;
+  --glass:rgba(255,255,255,0.62);
+  --glass2:rgba(255,255,255,0.85);
+  --border:rgba(255,255,255,0.85);
+  --border2:rgba(148,163,184,0.25);
+  --blur:blur(20px) saturate(160%);
+  --text:#0F172A;
+  --muted:#64748B;
+  --light:#94A3B8;
+  --sky:#0EA5E9;
+  --sky2:#38BDF8;
+  --r:16px;
+  --rl:24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* BG */
+.bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 20%,rgba(14,165,233,0.10) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 60% at 90% 80%,rgba(99,102,241,0.09) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 60% 40%,rgba(16,185,129,0.07) 0%,transparent 60%),
+    var(--bg);
+}
+.dots{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(148,163,184,0.28) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);
+}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--sky),#818CF8);z-index:999}
+
+/* NAV */
+nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);
+  z-index:900;
+  background:var(--glass2);
+  backdrop-filter:var(--blur);
+  -webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:9px 24px;
+  display:flex;align-items:center;gap:28px;
+  box-shadow:0 4px 24px rgba(15,23,42,0.08);
+}
+.nav-logo{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;font-size:.85rem;
+  color:var(--sky);text-decoration:none;
+  letter-spacing:.02em;
+}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{
+  font-size:.82rem;font-weight:500;
+  color:var(--muted);text-decoration:none;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  background:var(--navy) !important;
+  color:#fff !important;
+  padding:6px 16px;border-radius:100px;
+  font-size:.78rem !important;font-weight:600 !important;
+  transition:opacity .2s !important;
+}
+.nav-cta:hover{opacity:.8}
+
+/* LAYOUT */
+.wrap{position:relative;z-index:1}
+section{padding:96px 0}
+.c{max-width:1060px;margin:0 auto;padding:0 28px}
+
+/* GLASS */
+.g{
+  background:var(--glass);
+  backdrop-filter:var(--blur);
+  -webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  box-shadow:0 4px 24px rgba(15,23,42,0.07);
+}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding-top:0;
+}
+.hero-wrap{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:48px;align-items:center;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;font-weight:500;
+  color:var(--sky);
+  background:rgba(14,165,233,0.08);
+  border:1px solid rgba(14,165,233,0.22);
+  padding:5px 13px;border-radius:100px;
+  margin-bottom:22px;
+}
+.hero-dot{width:5px;height:5px;background:var(--sky2);border-radius:50%;animation:p 2s ease-in-out infinite}
+@keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{
+  font-size:clamp(3rem,6vw,5.2rem);
+  font-weight:700;
+  letter-spacing:-.04em;
+  line-height:1.0;
+  margin-bottom:14px;
+  color:var(--text);
+}
+h1 em{font-style:normal;color:var(--sky)}
+.hero-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.95rem;font-weight:400;
+  color:var(--muted);
+  margin-bottom:32px;
+  letter-spacing:.01em;
+}
+.hero-sub span{color:var(--sky)}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-p{
+  background:var(--navy);color:#fff;
+  padding:12px 26px;border-radius:100px;
+  font-size:.85rem;font-weight:600;
+  text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 18px rgba(15,23,42,0.22);
+}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,23,42,0.28)}
+.btn-g{
+  background:var(--glass);
+  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  color:var(--text);padding:12px 26px;border-radius:100px;
+  font-size:.85rem;font-weight:600;
+  text-decoration:none;border:1px solid var(--border);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 4px 18px rgba(15,23,42,0.1)}
+
+/* Hero side card */
+.hero-card{padding:30px;width:230px;display:flex;flex-direction:column;gap:18px}
+.av{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sky),#818CF8);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;font-size:1.3rem;color:#fff;
+}
+.hero-card-name{font-size:.95rem;font-weight:600;line-height:1.3}
+.hero-card-role{font-size:.75rem;color:var(--muted);margin-top:3px}
+.divl{height:1px;background:var(--border2)}
+.loc{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--muted)}
+.loc-d{width:7px;height:7px;background:#10B981;border-radius:50%;animation:p 2s ease-in-out infinite}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.b{
+  font-size:.65rem;font-weight:600;
+  padding:3px 9px;border-radius:100px;border:1px solid;
+}
+.bs{color:var(--sky);background:rgba(14,165,233,0.07);border-color:rgba(14,165,233,0.2)}
+.bg2{color:#059669;background:rgba(16,185,129,0.07);border-color:rgba(16,185,129,0.2)}
+.bv{color:#7C3AED;background:rgba(124,58,237,0.07);border-color:rgba(124,58,237,0.2)}
+
+/* ── SECTION HEADER ── */
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--sky);margin-bottom:10px;
+}
+h2{
+  font-size:clamp(1.7rem,3.5vw,2.6rem);
+  font-weight:700;letter-spacing:-.035em;
+  line-height:1.1;margin-bottom:14px;
+}
+.sub{font-size:.95rem;color:var(--muted);max-width:480px;line-height:1.75}
+.sh{margin-bottom:52px}
+
+/* ── LANGUAGES ── */
+.term{
+  border-radius:var(--rl);
+  overflow:hidden;
+  box-shadow:0 8px 40px rgba(15,23,42,0.12);
+}
+.term-bar{
+  background:var(--navy);
+  padding:13px 18px;
+  display:flex;align-items:center;gap:7px;
+}
+.tb{width:11px;height:11px;border-radius:50%}
+.tb1{background:#FF5F57}.tb2{background:#FFBD2E}.tb3{background:#28C840}
+.term-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:rgba(255,255,255,0.35);
+  margin-left:8px;
+}
+.term-body{
+  background:var(--navy2);
+  padding:28px 32px;
+  display:flex;flex-direction:column;gap:18px;
+}
+.lang-row{display:flex;align-items:center;gap:16px}
+.lang-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.82rem;font-weight:500;
+  color:rgba(255,255,255,0.85);
+  width:100px;flex-shrink:0;
+}
+.lang-bar-wrap{flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}
+.lang-bar{height:100%;border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.lang-level{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;font-weight:400;
+  color:rgba(255,255,255,0.3);
+  width:80px;text-align:right;flex-shrink:0;
+}
+.tools-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-top:28px;
+}
+.tool-card{padding:26px 28px}
+.tool-cat{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:16px;
+}
+.tc-sky{color:var(--sky)}.tc-green{color:#059669}.tc-violet{color:#7C3AED}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  font-size:.75rem;font-weight:500;
+  padding:5px 11px;
+  border-radius:8px;
+  background:rgba(255,255,255,0.7);
+  border:1px solid rgba(255,255,255,0.9);
+  color:var(--text);
+  transition:transform .15s,box-shadow .15s;
+}
+.chip:hover{transform:translateY(-1px);box-shadow:0 3px 12px rgba(15,23,42,0.1)}
+
+/* ── EXPERIENCE ── */
+.exp-list{display:flex;flex-direction:column;gap:18px}
+.exp-card{
+  padding:30px 34px;
+  display:grid;grid-template-columns:auto 1fr;
+  gap:0 24px;align-items:start;
+}
+.exp-dot{
+  width:10px;height:10px;border-radius:50%;
+  margin-top:6px;flex-shrink:0;
+}
+.ed1{background:var(--sky)}.ed2{background:#10B981}.ed3{background:#818CF8}.ed4{background:#F59E0B}
+.exp-role{font-size:1rem;font-weight:600;margin-bottom:3px}
+.exp-org{font-size:.82rem;color:var(--muted);font-weight:500;margin-bottom:12px}
+.exp-points{list-style:none;display:flex;flex-direction:column;gap:6px}
+.exp-points li{
+  font-size:.83rem;color:var(--muted);line-height:1.6;
+  padding-left:13px;position:relative;
+}
+.exp-points li::before{
+  content:'';position:absolute;left:0;top:8px;
+  width:4px;height:4px;border-radius:50%;
+  background:var(--sky2);
+}
+
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.edu-card{padding:24px 28px;display:flex;align-items:flex-start;gap:14px}
+.edu-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.edu-deg{font-size:.92rem;font-weight:600;margin-bottom:4px}
+.edu-inst{font-size:.78rem;color:var(--muted)}
+.cert-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.cert{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;font-size:.78rem;font-weight:500;
+}
+
+/* ── CONTACT ── */
+.contact-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.contact-main{padding:42px 44px}
+.contact-main h3{
+  font-size:1.5rem;font-weight:700;
+  letter-spacing:-.03em;margin-bottom:10px;
+}
+.contact-main p{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:26px}
+.clinks{display:flex;flex-direction:column;gap:12px}
+.clink{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;color:var(--text);font-size:.85rem;font-weight:500;
+  transition:color .2s;
+}
+.clink:hover{color:var(--sky)}
+.clink-icon{
+  width:36px;height:36px;border-radius:9px;
+  background:rgba(14,165,233,0.08);
+  border:1px solid rgba(14,165,233,0.15);
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;
+}
+.contact-side{padding:42px 36px;display:flex;flex-direction:column;gap:20px}
+.contact-side h4{font-size:.8rem;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.open-row{display:flex;flex-wrap:wrap;gap:7px}
+.open-chip{
+  font-size:.73rem;font-weight:500;
+  padding:5px 12px;border-radius:8px;
+  background:rgba(255,255,255,0.7);
+  border:1px solid var(--border2);
+  color:var(--muted);
+}
+
+/* FLOATING EMAIL BTN */
+.float-btn{
+  position:fixed;
+  bottom:28px;right:28px;
+  z-index:950;
+  display:flex;align-items:center;gap:0;
+  background:var(--navy);
+  border-radius:100px;
+  box-shadow:0 8px 32px rgba(15,23,42,0.28);
+  cursor:pointer;
+  text-decoration:none;
+  overflow:hidden;
+  transition:box-shadow .3s,transform .3s;
+  animation:float-in .6s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:1.2s;
+}
+@keyframes float-in{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.float-btn:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(15,23,42,0.36)}
+.float-btn:hover .float-label{max-width:200px;padding:0 18px 0 0;opacity:1}
+.float-icon{
+  width:52px;height:52px;
+  border-radius:100px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--sky),#6366F1);
+  flex-shrink:0;
+  font-size:1.15rem;
+}
+.float-label{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:.8rem;font-weight:600;
+  color:#fff;white-space:nowrap;
+  max-width:0;opacity:0;
+  transition:max-width .4s cubic-bezier(.16,1,.3,1),opacity .3s,padding .4s;
+  overflow:hidden;
+}
+.float-pulse{
+  position:absolute;top:4px;right:4px;
+  width:10px;height:10px;
+  background:#10B981;
+  border-radius:50%;
+  border:2px solid var(--navy);
+}
+.float-pulse::after{
+  content:'';
+  position:absolute;inset:-3px;
+  border-radius:50%;
+  background:rgba(16,185,129,0.4);
+  animation:ping 2s ease-in-out infinite;
+}
+@keyframes ping{0%{transform:scale(1);opacity:.8}70%{transform:scale(1.8);opacity:0}100%{opacity:0}}
+
+/* FOOTER */
+footer{
+  text-align:center;padding:28px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:var(--light);
+  border-top:1px solid var(--border2);
+}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .nav-links{display:none}
+  .hero-wrap{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .tools-grid{grid-template-columns:1fr 1fr}
+  .edu-grid{grid-template-columns:1fr}
+  .contact-inner{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .tools-grid{grid-template-columns:1fr}
+  .exp-card{grid-template-columns:1fr;gap:8px}
+  .exp-dot{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .rv,.lang-bar{transition:none !important}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div class="bg" aria-hidden="true"></div>
+<div class="dots" aria-hidden="true"></div>
+
+<nav role="navigation">
+  <a href="#hero" class="nav-logo">&gt; whilky.dev</a>
+  <ul class="nav-links">
+    <li><a href="#languages">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="c">
+    <div class="hero-wrap">
+      <div>
+        <div class="hero-tag rv"><span class="hero-dot"></span>Data · Automation · Research</div>
+        <h1 class="rv d1">Whilky<br/><em>Ogolla</em></h1>
+        <p class="hero-sub rv d2">
+          <span>//</span> Data Specialist &amp; AI Automation Engineer
+        </p>
+        <div class="btns rv d3">
+          <a href="#experience" class="btn-p">View Experience</a>
+          <a href="#contact" class="btn-g">Get In Touch</a>
+        </div>
+      </div>
+      <div class="hero-card g rv d2">
+        <div class="av">WO</div>
+        <div>
+          <div class="hero-card-name">Whilky Ochieng Ogolla</div>
+          <div class="hero-card-role">BSc. Computer Science</div>
+        </div>
+        <div class="divl"></div>
+        <div class="badges">
+          <span class="b bs">CommCare</span>
+          <span class="b bg2">n8n</span>
+          <span class="b bv">R · STATA</span>
+          <span class="b bs">Python</span>
+          <span class="b bg2">Monday</span>
+        </div>
+        <div class="loc"><span class="loc-d"></span>Kisumu, Kenya · Remote</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES & TOOLS -->
+<section id="languages">
+  <div class="c">
+    <div class="sh rv">
+      <p class="eyebrow">Technical Skills</p>
+      <h2>Languages &amp; Tools</h2>
+    </div>
+
+    <!-- Terminal -->
+    <div class="term rv">
+      <div class="term-bar">
+        <div class="tb tb1"></div>
+        <div class="tb tb2"></div>
+        <div class="tb tb3"></div>
+        <span class="term-title">whilky@dev: ~ languages.sh</span>
+      </div>
+      <div class="term-body">
+        <div class="lang-row">
+          <span class="lang-name">Python</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" data-w="82" style="background:#3B82F6"></div></div>
+          <span class="lang-level">advanced</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">JavaScript</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" data-w="78" style="background:#EAB308"></div></div>
+          <span class="lang-level">advanced</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">R</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" data-w="80" style="background:#2563EB"></div></div>
+          <span class="lang-level">advanced</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">PHP</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" data-w="70" style="background:#8B5CF6"></div></div>
+          <span class="lang-level">proficient</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">ReactJS</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" data-w="68" style="background:#06B6D4"></div></div>
+          <span class="lang-level">proficient</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">HTML / CSS</span>
+          <div class="lang-bar-wrap"><div class="lang-bar" data-w="88" style="background:#F97316"></div></div>
+          <span class="lang-level">strong</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool groups -->
+    <div class="tools-grid">
+      <div class="tool-card g rv d1">
+        <div class="tool-cat tc-sky">Data Collection</div>
+        <div class="chips">
+          <span class="chip">CommCare</span>
+          <span class="chip">ODK</span>
+          <span class="chip">Survey CTO</span>
+          <span class="chip">Kobo Toolkit</span>
+          <span class="chip">QAQC</span>
+          <span class="chip">MS Access</span>
+        </div>
+      </div>
+      <div class="tool-card g rv d2">
+        <div class="tool-cat tc-green">Automation</div>
+        <div class="chips">
+          <span class="chip">n8n</span>
+          <span class="chip">Monday.com</span>
+          <span class="chip">API Integration</span>
+          <span class="chip">Git</span>
+          <span class="chip">Django</span>
+          <span class="chip">Laravel</span>
+        </div>
+      </div>
+      <div class="tool-card g rv d3">
+        <div class="tool-cat tc-violet">Statistical</div>
+        <div class="chips">
+          <span class="chip">R (tidyverse)</span>
+          <span class="chip">STATA</span>
+          <span class="chip">SPSS</span>
+          <span class="chip">Excel</span>
+          <span class="chip">EDA</span>
+          <span class="chip">Data Viz</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="c">
+    <div class="sh rv">
+      <p class="eyebrow">Career</p>
+      <h2>Experience</h2>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-card g rv">
+        <div class="exp-dot ed1" style="margin-top:5px"></div>
+        <div>
+          <div class="exp-role">Data Analysis &amp; Automation Specialist</div>
+          <div class="exp-org">Adaptive Management Research Consultancy (AMREC)</div>
+          <ul class="exp-points">
+            <li>Design and deploy n8n multi-step automation workflows connecting APIs, platforms, and reporting systems.</li>
+            <li>Collect and manage research data via ODK, CommCare, and Survey CTO with full QAQC protocols.</li>
+            <li>Statistical analysis in R, Stata, and SPSS — producing monitoring reports for research teams.</li>
+            <li>Configure Monday.com dashboards to automate project tracking and coordination.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card g rv d1">
+        <div class="exp-dot ed2" style="margin-top:5px"></div>
+        <div>
+          <div class="exp-role">Community Interviewer</div>
+          <div class="exp-org">KEMRI – Centre for Global Health Research (CGHR)</div>
+          <ul class="exp-points">
+            <li>Household-level field data collection using CommCare for a two-year vector control trial.</li>
+            <li>Routine data quality checks and SOP-aligned discrepancy resolution.</li>
+            <li>Progress and data-quality reports for research leads supporting real-time study monitoring.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card g rv d2">
+        <div class="exp-dot ed3" style="margin-top:5px"></div>
+        <div>
+          <div class="exp-role">Industrial Attaché – ICT</div>
+          <div class="exp-org">KEMRI – Centre for Global Health Research (CGHR)</div>
+          <ul class="exp-points">
+            <li>Network troubleshooting, workstation configuration, and hardware/software support.</li>
+            <li>Digital conferencing facilitation and routine IT maintenance.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card g rv d3">
+        <div class="exp-dot ed4" style="margin-top:5px"></div>
+        <div>
+          <div class="exp-role">Polling Clerk</div>
+          <div class="exp-org">Independent Electoral and Boundaries Commission (IEBC)</div>
+          <ul class="exp-points">
+            <li>High-volume, accurate data entry and voter verification under strict deadline conditions.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="c">
+    <div class="sh rv">
+      <p class="eyebrow">Background</p>
+      <h2>Education</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card g rv">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-deg">BSc. Computer Science</div>
+          <div class="edu-inst">Laikipia University</div>
+        </div>
+      </div>
+      <div class="edu-card g rv d1">
+        <div class="edu-icon">🔐</div>
+        <div>
+          <div class="edu-deg">Certificate in Computer Security</div>
+          <div class="edu-inst">Huawei, Nairobi</div>
+        </div>
+      </div>
+      <div class="edu-card g rv d2">
+        <div class="edu-icon">💻</div>
+        <div>
+          <div class="edu-deg">Certificate in Computer Programming</div>
+          <div class="edu-inst">Kisumu National Polytechnic</div>
+        </div>
+      </div>
+      <div class="edu-card g rv d3">
+        <div class="edu-icon">📜</div>
+        <div>
+          <div class="edu-deg">KCSE Certificate</div>
+          <div class="edu-inst">Homabay School</div>
+        </div>
+      </div>
+    </div>
+    <div class="cert-row">
+      <div class="cert g rv"><span>🌐</span> CISCO CCNA 1, 2 &amp; 3</div>
+      <div class="cert g rv d1"><span>🩺</span> CITI Program – GCP</div>
+      <div class="cert g rv d2"><span>🔬</span> NIDA – Good Clinical Practice</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="c">
+    <div class="sh rv">
+      <p class="eyebrow">Let's Connect</p>
+      <h2>Get In Touch</h2>
+    </div>
+    <div class="contact-inner">
+      <div class="contact-main g rv">
+        <h3>Say hello 👋</h3>
+        <p>Open to remote data, automation, research, and transcription opportunities. Reach out directly.</p>
+        <div class="clinks">
+          <a href="mailto:whilkyogolla@gmail.com" class="clink">
+            <div class="clink-icon">✉️</div>
+            whilkyogolla@gmail.com
+          </a>
+          <a href="tel:+254713492730" class="clink">
+            <div class="clink-icon">📞</div>
+            +254 713 492 730
+          </a>
+          <span class="clink">
+            <div class="clink-icon">📍</div>
+            Kisumu, Kenya · Remote-ready
+          </span>
+        </div>
+      </div>
+      <div class="contact-side g rv d1">
+        <div>
+          <h4>Open to</h4>
+          <div class="open-row">
+            <span class="open-chip">Research Data</span>
+            <span class="open-chip">MEAL / M&amp;E</span>
+            <span class="open-chip">n8n Automation</span>
+            <span class="open-chip">Data Analysis</span>
+            <span class="open-chip">Swahili Transcription</span>
+            <span class="open-chip">AI Annotation</span>
+            <span class="open-chip">Freelance Remote</span>
+          </div>
+        </div>
+        <div class="divl"></div>
+        <div>
+          <h4>Languages</h4>
+          <div class="open-row">
+            <span class="open-chip" style="border-color:rgba(14,165,233,0.3);color:#0EA5E9">English — Fluent</span>
+            <span class="open-chip" style="border-color:rgba(16,185,129,0.3);color:#059669">Swahili — Native</span>
+            <span class="open-chip" style="border-color:rgba(124,58,237,0.3);color:#7C3AED">Sheng — Fluent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- FLOATING EMAIL BUTTON -->
+<a id="float-email" class="float-btn" href="#" aria-label="Send Whilky a hiring enquiry">
+  <div class="float-pulse"></div>
+  <div class="float-icon">✉️</div>
+  <span class="float-label">Hire Me</span>
+</a>
+
+<footer>
+  <p>// whilky ogolla · kisumu, kenya · built with vanilla html</p>
+</footer>
+
+<script>
+// Progress bar
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  prog.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}});
+},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Floating email button
+const subject = encodeURIComponent("Enquiry — I'd Like to Work With You");
+const body = encodeURIComponent(
+`Hi Whilky,
+
+I came across your portfolio and I'm impressed by your background in data management and AI automation.
+
+I'd love to explore the possibility of working together. Could we schedule a time to discuss how your skills might fit our needs?
+
+Looking forward to hearing from you.
+
+Kind regards,
+[Your Name]
+[Your Organisation]`
+);
+document.getElementById('float-email').href=`mailto:whilkyogolla@gmail.com?subject=${subject}&body=${body}`;
+
+// Language bars — animate when terminal scrolls into view
+const term=document.querySelector('.term');
+let animated=false;
+const termObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!animated){
+    animated=true;
+    document.querySelectorAll('.lang-bar').forEach(bar=>{
+      setTimeout(()=>{ bar.style.width=bar.dataset.w+'%'; },120);
+    });
+  }
+},{threshold:0.3});
+termObs.observe(term);
+</script>
+</body>
+</html>
